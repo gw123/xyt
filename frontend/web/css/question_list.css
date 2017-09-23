@@ -1,0 +1,68 @@
+body .wrap > .container {  padding: 10px 15px 20px;  }
+.question{
+    width: 98%;
+    margin-left: 1%;
+    margin-bottom: 20px;
+    background: #0dbd02;
+    padding: 10px;
+    border-bottom: solid 1px #000000;
+
+}
+.question_info{  width: 99%;  border: solid 1px #404040;  height: 50px;  }
+.question_info div{
+    width: 25%;  float: left;  height: 24px;  line-height: 24px;
+    text-indent: 1em;
+    overflow: hidden;
+}
+.question h3{  font-size: 16px;  font-weight: 800;  display: inline;  width: 20px;
+}
+.question .content .choice{  margin-left: 3em;  }
+.question .stem{
+}
+.question .answer{
+    border-top: solid 1px #00a0e9;
+
+    color: #ff2e19;
+}
+.question .analysis{
+    color: #ef3e39;
+}
+
+.question .sub_question{
+    width: 92%;
+    margin: auto;
+    margin-top: 5px;
+}
+
+.paper{ min-width: 90%; padding: 20px; margin:0 auto}
+.paper .paper_info { width: 100%;text-align: center  }
+.paper .paper_title{ font-size: 2em;font-weight: 700; width: 100%;text-align: center  }
+
+.choice_item{ width: 45%;float: left;margin-right: 4%;}
+ label{ line-height:20px; margin-bottom:5px;}
+.radio { border-radius:5px; background-color:#66ffee; border:1px solid #ddd; padding:4px 6px; text-align:left; display:block;}
+.checkbox{ border-radius:5px; background-color:#eee;border:1px solid #ddd; padding:5px 10px; text-align:left; display:block;}
+.w_tips {  padding: 5px 0;  color: #333;  font-size: 14px;  }
+.content{ font-size: 13px; padding: 8px 0px }
+.form-item {  margin-bottom: 6px;  }
+.lead_box .do h6 {  border: none; padding-bottom: 4px;  color: #333;  margin-bottom: 6px; font-size: 16px;  font-weight:600; }
+
+.lead_content {  border-top: 1px dashed #fff;  line-height: 22px;
+    color: #444;  font-size: 16px;  padding: 3px 0 0;  text-align: left;  word-break: break-word;
+}
+.lead_box {  padding: 4px 15px 10px 25px;  }
+.lead_btn {
+    border-radius: 10px;
+    background-color: #352c3a;
+    -moz-box-shadow: 0 1px 2px #6c6570;
+    -webkit-box-shadow: 0 1px 2px #6c6570;
+    box-shadow: 0 1px 2px #6c6570;
+    padding: 8px;
+    color: #fff;
+    width: 200px;
+    margin: 4px 20px 10px 20px ;
+    display: block;
+    text-align: center;
+    font-size: 20px;
+    position: relative;
+}

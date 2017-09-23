@@ -1,0 +1,47 @@
+<!-- 图片上传模态框（Modal） -->
+<div class="modal fade" id="up_image_model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">图片上传</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form class="form-group" action="" class="form-group"  method="post" enctype="multipart/form-data">
+                        <div class="col-md-8 ">
+                            <input id='upload_image_id' type="file" class="" style="width: 100%" name="image_file" >
+                        </div>
+                        <div class="col-md-4 ">
+                            <input type="button" class="form-control" onclick='onUploadImage()' value="上传">
+                        </div>
+                    </form>
+                    <div style="clear: both"></div>
+                </div>
+
+                <div class="row" id="upimage_progress_" style="display:none">
+                    <div class="col-sm-8 ">
+                        <div class=" progress progress-striped active">
+                            <div class="progress-bar progress-bar-success" role="progressbar"
+                                 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                 style="width: 0%;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <row style="">
+                    <div id="upload_display" style="min-height: 100px;padding: 40px;text-align: center;font-size: 2em;border: dashed">
+                        <img id="upload_dispaly_img" alt="预览">
+                    </div>
+                </row>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" onclick="add_image()">保存</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>

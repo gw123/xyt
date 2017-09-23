@@ -1,0 +1,38 @@
+.module-title     {line-height: 30px; color: #c88d27 ; margin: 15px 0px;font-size: 24px; font-weight: 600 }
+.module-title span{ font-size: 14px; font-weight: 500}
+
+
+/***************/
+.row-list-box li  { padding: 0px 5px;  display: block;float: left;  color: #0a2b1d;  height: 260px; overflow: hidden ; position: relative}
+.row-list-box{ margin: 15px 0px 8px 0px}
+.row-list-box .item-name { font-size: 16px;  width: 100%;height: 46px;overflow: hidden }
+.row-list-box .item-about{ width: 90%; height: 120px;overflow: hidden}
+.row-list-box .item-about img{  max-height: 40px;}
+.row-list-box .item-footer{height: 68px;}
+
+.row-list-box li a{ color: #0a2b1d}
+.row-list-box li .li-box{  background-color: #dedcdc;  padding: 5px;
+    border-radius: 3px;  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);  border-bottom: 1px solid #e2e2e2;}
+.row-list-box li img{  display: inline-block;  position: absolute;  height: 240px;  left: 0px;  top: 0px;  width: 95%;  }
+
+.row-list-box2 li  {
+    margin-bottom: 10px;
+    border-radius: 3px;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+    /*border-bottom: 1px solid #e2e2e2;*/
+    /*background: #fff; */
+    height: 280px; overflow: hidden ; position: relative}
+.row-list-box2 li img{
+    display: inline-block;
+    position: absolute;
+    height: 280px;
+    border-radius: 8px;
+    left: 0px;
+    top: 0px;
+    width: 95%;
+}
+.row-list-box2 .li-box{padding: 5px; margin-left: 20px}
+.row-list-box2 .item-name { text-align:center;font-size: 16px;  width: 100%;height: 46px;overflow: hidden }
+.row-list-box2 .item-about{ width: 90%; height: 160px;overflow: hidden}
+.row-list-box2 .item-about img{  max-height: 40px;}
+.row-list-box2 .item-footer{height: 68px; margin-top: 10px}
