@@ -219,42 +219,50 @@ class ArticleSearch extends Article
      */
     public  static  function  getPageByCategory($category , $page=1 , $pagesize=12, $keyword='')
     {
-        $page = intval($page)? intval($page) :1 ;
-        $pagesize=intval($pagesize) ?intval($pagesize) :12;
-        $query = new \yii\sphinx\Query();
-        $query->setConnection(Yii::$app->sphinx);
-        $query->from('article');
-
-        $query->limit($pagesize)->offset( ($page-1)*$pagesize );
-
-        if( !empty($category) )
-            $query->andFilterWhere( ['in' , 'category', $category] );
-        if($keyword)
-            $query->match($keyword);
-        $query->orderBy('createdTime desc');
-        $total = $query->count();
-        //$sql =  $query->createCommand(  )->getRawSql();echo $sql;
-        $articles =  $query->createCommand(  )->queryAll();
-        //echo $sql ; var_dump($articles);exit;
-        foreach ($articles as &$article)
+        $argv_ ='article_'.md5( serialize( func_get_args() ) );
+        $ret = Yii::$app->cache->get($argv_);
+        if(!$ret)
         {
-            $article['userId'] = $article['userid'];
-            $article['createdTime'] = date('Y:m:d' ,$article['createdtime']);
-            $article['desc'] = $article['desc'] ? $article['desc'] : '点击查看详情';
-            $article['cover'] = Yii::$app->params['defaultArticleImage'];
-            $article['categoryName'] = CategorySearch::getLastCategoryName($article['category']);
-            $chapters = ChapterSearch::getTitlesByIdstr($article['chapter']);
-            $tagStr = '';
-            foreach ($chapters as $index => $chapterTitle)
+            $page = intval($page)? intval($page) :1 ;
+            $pagesize=intval($pagesize) ?intval($pagesize) :12;
+            $query = new \yii\sphinx\Query();
+            $query->setConnection(Yii::$app->sphinx);
+            $query->from('article');
+
+            $query->limit($pagesize)->offset( ($page-1)*$pagesize );
+
+            if( !empty($category) )
+                $query->andFilterWhere( ['in' , 'category', $category] );
+            if($keyword)
+                $query->match($keyword);
+            $query->orderBy('createdTime desc');
+            $total = $query->count();
+            //$sql =  $query->createCommand(  )->getRawSql();echo $sql;
+            $articles =  $query->createCommand(  )->queryAll();
+            //echo $sql ; var_dump($articles);exit;
+            foreach ($articles as &$article)
             {
-                $chapterTitle = mb_substr($chapterTitle , 0 , 6);
-                $tagStr .="<a href='/index/detal?id={$index}' target='_blank' class='tag'>{$chapterTitle} </a>";
+                $article['userId'] = $article['userid'];
+                $article['createdTime'] = date('Y:m:d' ,$article['createdtime']);
+                $article['desc'] = $article['desc'] ? $article['desc'] : '点击查看详情';
+                $article['cover'] = Yii::$app->params['defaultArticleImage'];
+                $article['categoryName'] = CategorySearch::getLastCategoryName($article['category']);
+                $chapters = ChapterSearch::getTitlesByIdstr($article['chapter']);
+                $tagStr = '';
+                foreach ($chapters as $index => $chapterTitle)
+                {
+                    $chapterTitle = mb_substr($chapterTitle , 0 , 6);
+                    $tagStr .="<a href='/index/detal?id={$index}' target='_blank' class='tag'>{$chapterTitle} </a>";
+                }
+                //echo $tagStr;
+                $article['chapterNameTags'] = $tagStr;
             }
-            //echo $tagStr;
-            $article['chapterNameTags'] = $tagStr;
+            $ret = [ 'data'=>$articles ,'total'=>$total ] ;
+            Yii::$app->cache->set($argv_,$ret,600);
         }
 
-        return  [ 'data'=>$articles ,'total'=>$total ] ;
+
+        return  $ret;
     }
 
     /***

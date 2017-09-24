@@ -90,29 +90,39 @@ class VideoSearch extends Video
     }
 
     public static function getPageByCategory($category ,$page ,$pagesize,$keyword=''){
-        $page = intval($page)? intval($page) :1 ;
-        $pagesize=intval($pagesize) ?intval($pagesize) :12;
-        $query = new \yii\sphinx\Query();
-        $query->setConnection(Yii::$app->sphinx);
-        $query->from('video');
-
-        $query->limit($pagesize)->offset( ($page-1)*$pagesize );
-
-        if( !empty($category) )
-            $query->andFilterWhere( ['in' , 'category', $category] );
-        if($keyword)
-            $query->match($keyword);
-        $query->orderBy('createdTime desc');
-        $total = $query->count();
-        //$sql =  $query->createCommand(  )->getRawSql();echo $sql;
-        $rows =  $query->createCommand(  )->queryAll();
-
-        foreach ($rows as &$row)
+        $argv_ = 'video_'.md5( serialize( func_get_args() ) );
+        $ret = Yii::$app->cache->get($argv_);
+        if(!$ret)
         {
-            $row['createdTime'] = $row['createdtime'];
-            $row['userId'] = $row['userid'];
+            //var_dump($argv); exit();
+            $page = intval($page)? intval($page) :1 ;
+            $pagesize=intval($pagesize) ?intval($pagesize) :12;
+            $query = new \yii\sphinx\Query();
+            $query->setConnection(Yii::$app->sphinx);
+            $query->from('video');
+
+            $query->limit($pagesize)->offset( ($page-1)*$pagesize );
+
+            if( !empty($category) )
+                $query->andFilterWhere( ['in' , 'category', $category] );
+            if($keyword)
+                $query->match($keyword);
+            $query->orderBy('createdTime desc');
+            $total = $query->count();
+            //$sql =  $query->createCommand(  )->getRawSql();echo $sql;
+            $rows =  $query->createCommand(  )->queryAll();
+
+            foreach ($rows as &$row)
+            {
+                $row['createdTime'] = $row['createdtime'];
+                $row['userId'] = $row['userid'];
+            }
+            $ret = [ 'data'=>$rows ,'total'=>$total ] ;
+            Yii::$app->cache->set($argv_,$ret,600);
         }
-        return  [ 'data'=>$rows ,'total'=>$total ] ;
+
+
+        return  $ret ;
     }
 
     public static  function  getLast($num = 5)
